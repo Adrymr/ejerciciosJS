@@ -1,0 +1,35 @@
+html {
+    font-family: 'Poppins', sans-serif;   
+}
+
+.div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container{
+    text-align: center;
+    width: 600px;
+    height: fit-content;
+    border: solid 10px lavender;
+    border-radius: 50px;
+    margin-top: 40px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+.btn{
+    font-family: 'Poppins', sans-serif;  
+    border: solid 3px lavender;
+    width: 100px;
+    background-color: transparent;
+    font-weight: 700;
+    border-radius: 50px;
+}
+
+.table-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

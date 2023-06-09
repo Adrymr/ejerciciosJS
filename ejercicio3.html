@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 3</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap">
+</head>
+<body>
+    <div class="div">
+        <div class="container">
+            <h1>Registro de Notas de Alumnos</h1>
+    
+            <div id="form">
+                <label for="cantidad">Indique el numero de alumnos que desea registrar</label><br>
+                <input type="number" id="cantidad" required><br>
+                <br><button onclick="mostrar()" id=btn class="btn">Siguiente</button>
+            </div>
+    
+            <div class="input-container" id="inputs"></div>
+
+            <div class="input-container" id="estadistica"></div>
+        </div>
+    </div>
+</body>
+</html>
+
+<script>
+    function mostrar() {
+        let cantidad = parseInt(document.getElementById('cantidad').value)
+        let div = document.getElementById('inputs')
+        let elementos = "" 
+
+        if(cantidad > 0){
+            for(let i=0; i<cantidad; i++){
+                elementos += "<br><label for='txtNombre' class='etiqueta'>Ingrese el nombre y apellido del estudiante:</label> <input type='text' name='txtNombre' id='inputNombre" +[i]+ "' required>" + "<br><label for='txtCedula' class='etiqueta'>Ingrese el Nro de cedula del estudiante</label> <input type='text' name='txtCedula' id='inputCedula" +[i]+ "'minlength='7' maxlength='9' required>" + "<br><label for='txtNotaMatematica' class='etiqueta'>Nota de Matematica</label> <input type='number' name='txtNotaMatematica' id='inputNotaM" +[i]+ "' min='1' max='20' required>" + "<br><label for='txtNotaFisica' class='etiqueta'>Nota de Fisica</label> <input type='number' name='txtNotaFisica' id='inputNotaF" + [i] +"' min='1' max='20' required>" + "<br><label for='txtNotaProgramación' class='etiqueta'>Nota de Programación</label> <input type='number' name='txtNotaProgramacion' id='inputNotaP" +[i]+ "'min='1' max='20' required><br>" + "<hr>"
+        }
+            div.innerHTML = elementos + "<br><button onclick='registrar()' id=btn2 class='btn'>Registrar</button>"
+        }else {
+            alert("Debe indicar la cantidad de registros que desea realizar")
+        }
+    }
+
+    function registrar(){
+        let cantidad = parseInt(document.getElementById('cantidad').value)
+        let elementos = ""
+
+        let listaAlumnos = [] 
+
+        let totalNotasMatematica = 0;
+        let totalNotasFisica = 0;
+        let totalNotasProgramacion = 0;
+
+        let promedioMatematica = 0;
+        let promedioFisica = 0;
+        let promedioProgramacion = 0;
+
+        let totalAlumnosMatematica = 0;
+        let totalAlumnosFisica = 0;
+        let totalAlumnosProgramacion = 0;
+        
+        let alumnosAprobadosMatematica = 0;
+        let alumnosAprobadosFisica = 0;
+        let alumnosAprobadosProgramacion = 0;
+
+        let alumnosAplazadosMatematica = 0;
+        let alumnosAplazadosFisica = 0;
+        let alumnosAplazadosProgramacion = 0;
+
+        let alumnosAprobados1 = 0;
+        let alumnosAprobados2 = 0;
+        let alumnosAprobados3 = 0;
+
+        let notaMaximaMatematica = 0;
+        let notaMaximaFisica = 0;
+        let notaMaximaProgramacion = 0;
+        
+        document.getElementById('form').style.display = 'none';
+
+        for (let i=0; i<cantidad; i++){
+
+            let alumno = {}
+            alumno.nombre = document.getElementById(`inputNombre${i}`).value
+            alumno.cedula = document.getElementById(`inputCedula${i}`).value
+            alumno.notaM = parseInt(document.getElementById(`inputNotaM${i}`).value)
+            alumno.notaF = parseInt(document.getElementById(`inputNotaF${i}`).value)
+            alumno.notaP = parseInt(document.getElementById(`inputNotaP${i}`).value)
+            listaAlumnos.push(alumno)
+        }
+
+        listaAlumnos.forEach(alumno => {
+            //sumatoria de las notas para el promedio de cada materia
+            totalNotasMatematica += alumno.notaM
+            totalNotasFisica += alumno.notaF
+            totalNotasProgramacion += alumno.notaP
+
+            // calculo de alumnos aprobados y aplazados de cada materia
+            if (alumno.notaM >=10){
+                alumnosAprobadosMatematica++;
+            }else {
+                alumnosAplazadosMatematica++;
+            }   
+
+            if (alumno.notaF >=10){
+                alumnosAprobadosFisica++;
+            }else{
+                alumnosAplazadosFisica++;
+            }  
+
+            if (alumno.notaP >=10){
+                alumnosAprobadosProgramacion++;
+            }else{
+                alumnosAplazadosProgramacion++;
+            }  
+            
+
+            //calculo de alumnos que aprobaron 3, 2 0 1 materia
+            if(alumno.notaM >= 10 && alumno.notaF >= 10 && alumno.notaP >= 10) {
+                alumnosAprobados3++
+            }
+            
+            if(alumno.notaM >= 10 && alumno.notaF >= 10 && alumno.notaP <10 || alumno.notaF >=10 && alumno.notaP >= 10 && alumno.notaM < 10 || alumno.notaM >= 10 && alumno.notaP >= 10 && alumno.notaF < 10 ){
+                alumnosAprobados2++ 
+            }
+
+            if(alumno.notaM >= 10 && alumno.notaF < 10 && alumno.notaP < 10 || alumno.notaF >=10 && alumno.notaM < 10 && alumno.notaP < 10 || alumno.notaP >= 10 && alumno.notaM <10 && alumno.notaF <10){
+                alumnosAprobados1++
+            }
+
+            //calculo de la nota max de cada materia
+            if(alumno.notaM> notaMaximaMatematica){
+                notaMaximaMatematica = alumno.notaM
+            }
+            if(alumno.notaF > notaMaximaFisica){
+                notaMaximaFisica = alumno.notaF
+            }
+            if(alumno.notaP > notaMaximaProgramacion){
+            notaMaximaProgramacion = alumno.notaP
+            }
+
+        })
+
+        // calculo del promedio de cada materia
+
+        console.log(totalNotasMatematica, totalNotasFisica, totalNotasProgramacion)
+
+        promedioMatematica = totalNotasMatematica / cantidad
+        promedioFisica = totalNotasFisica / cantidad 
+        promedioProgramacion = totalNotasProgramacion / cantidad
+
+        let div = document.getElementById('estadistica')
+        let hideDive = document.getElementById('inputs').style.display = 'none'
+
+        elementos = `<br><h2>Estadisticas</h2><br><p>Promedio de Matematicas: ${promedioMatematica}</p> <p>Promedio Fisica: ${promedioFisica}</p> <p>Promedio Programacion: ${promedioProgramacion}</p>` + `<br><p>Alumnos Aprobados Matematica: ${alumnosAprobadosMatematica}</p> <p>Alumnos Aprobados Fisica: ${alumnosAprobadosFisica}</p> <p>Alumnos Aprobados Programacion: ${alumnosAprobadosProgramacion}</p>` + `<br><p>Alumnos aplazados Matematica: ${alumnosAplazadosMatematica}</p> <p>Alumnos Aplazados Fisica: ${alumnosAplazadosFisica}</p> <p>Alumnos Aplazados Programacion: ${alumnosAplazadosProgramacion}</p> `+ `<br><p>Alumnos que aprobaron todas las materias: ${alumnosAprobados3}</p> <p>Alumnos que aprobaron 2 materias: ${alumnosAprobados2}</p> <p>Alumnos que aprobaron 1 materia: ${alumnosAprobados1}</p>` + `<br><p>Nota maxima Matematica: ${notaMaximaMatematica}</p> <p>Nota maxima Fisica: ${notaMaximaFisica}</p> <p>Nota maxima Programacion: ${notaMaximaProgramacion}</p>`
+
+        div.innerHTML = elementos
+        debugger
+    }
+</script>

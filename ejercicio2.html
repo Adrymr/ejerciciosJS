@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 2</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="div">
+        <div class="container">
+            <h1>Calculo del Interes</h1>
+    
+            <div class="table-container">
+                <table class="table">
+                    <thead>
+                        <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Mes</th>
+                        <th scope="col">Monto</th>
+                        <th scope="col">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                        <th scope="row">1</th>
+                        <td>Enero</td>
+                        <td>0.00$</td>
+                        <td>0.00$</td>
+                        </tr>
+                        <tr>
+                        <th scope="row">2</th>
+                        <td>Febrero</td>
+                        <td>250.00$</td>
+                        <td>250.00$</td>
+                        </tr>
+                        <tr>
+                        <th scope="row">2</th>
+                        <td>Marzo</td>
+                        <td>250.00$</td>
+                        <td>500.00$</td>
+                        </tr>
+                        <tr>
+                        <th scope="row">2</th>
+                        <td>Abril</td>
+                        <td>250.00$</td>
+                        <td>750.00$</td>
+                        </tr>
+                        <tr>
+                        <th scope="row">2</th>
+                        <td>Mayo</td>
+                        <td>250.00$</td>
+                        <td>1000.00$</td>
+                        </tr>
+                        <tr>
+                        <th scope="row">2</th>
+                        <td>Junio</td>
+                        <td>250.00$</td>
+                        <td>1250.00$</td>
+                        </tr>
+                        <tr>
+                        <th scope="row">2</th>
+                        <td>Julio</td>
+                        <td>250.00$</td>
+                        <td>1500.00$</td>
+                        </tr>
+                        <tr>
+                        <th scope="row">2</th>
+                        <td>Agosto</td>
+                        <td>250.00$</td>
+                        <td>1750.00$</td>
+                        </tr>
+                        <tr>
+                        <th scope="row">2</th>
+                        <td>Septiembre</td>
+                        <td>250.00$</td>
+                        <td>2000.00$</td>
+                        </tr>
+                        <tr>
+                        <th scope="row">2</th>
+                        <td>Octubre</td>
+                        <td>250.00$</td>
+                        <td>2250.00$</td>
+                        </tr>
+                        <tr>
+                        <th scope="row">2</th>
+                        <td>Noviembre</td>
+                        <td>250.00$</td>
+                        <td>2500.00$</td>
+                        </tr>
+                        <tr>
+                        <th scope="row">2</th>
+                        <td>Diciembre</td>
+                        <td>250.00$</td>
+                        <td>2750.00$</td>
+                        </tr>
+                    </tbody>
+                    </table>
+            </div>
+
+            <br><button onclick="calcular()" id=btn class="btn">Calcular interes</button>
+    
+            <div class="" id="estadisticas"></div>
+        </div>
+    </div>
+</body>
+</html>
+
+<script>
+    function calcular(){
+        let montoInicial = 0; // Se asume que el monto ingresasdo en enero 0
+        let ingresoMensual = 250; // cada mes se ingresan $250
+        let interesMensual = ingresoMensual * 0.0125; // el interés mensual es del 1.25%
+        let totalInteres = 0 
+        let saldoTotalI
+        let meses = 11; // se calcula el interés a fin de año, es decir, en 12 meses
+
+        let saldoTotal = montoInicial;
+
+        for (let i = 1; i <= meses; i++) {
+            totalInteres += interesMensual 
+            saldoTotal += ingresoMensual;
+        }
+
+        saldoTotalI = saldoTotal + totalInteres;
+
+        let div = document.getElementById("estadisticas")
+        let elementos = `<div><h1>Resultados</h1><br<p>Total del interes acumulado =  ${totalInteres.toFixed(2)}</p><p>Saldo total de la cuenta de ahorro = ${saldoTotalI.toFixed(2)}</p></div>`
+        div.innerHTML = elementos
+    }
+</script>

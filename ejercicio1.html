@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 1</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="div">
+        <div class="container">
+            <h1>Registro de Peso de Alumnos</h1>
+    
+            <div id="form">
+                <label for="catidad">Indique el numero de alumnos que desea registrar</label><br>
+                <input type="number" id="cantidad" required><br>
+                <br><button onclick="mostrarInputs()" id=btn class="btn">Siguiente</button>
+            </div>
+    
+            <div class="input-container" id="inputs"></div>
+        </div>
+    </div>
+</body>
+</html>
+
+<script>
+var pesosAlumnos = []
+
+    function mostrarInputs() {
+        let cantidad = parseInt(document.getElementById('cantidad').value)
+        let div = document.getElementById('inputs')
+        let elementos = "" 
+
+        if(cantidad > 0){
+            for(let i=0; i<cantidad; i++){
+            elementos += "<br><label for='pesoAlumno'>Indique el peso del alumno</label><br><input type='number' id='pesoAlumno"+[i]+"'><br>"
+        }
+            div.innerHTML = elementos + "<br><button onclick='registrar()' id=btn2 class='btn'>Registrar</button>"
+        }else {
+            alert("Debe indicar la cantidad de registros que desea realizar")
+        }
+    }
+
+    function registrar() {
+        let cantidad = parseInt(document.getElementById('cantidad').value)
+        let div = document.getElementById('inputs')
+        let elementos = "" 
+        
+        document.getElementById('form').style.display = 'none';
+        let peso = 0
+        let pesoMenor40 = 0
+        let pesoEntre40y50 = 0
+        let pesoEntre50y60 = 0
+        let pesoMayor60 = 0
+
+        for (let i=0; i<cantidad; i++){
+            peso = parseInt(document.getElementById(`pesoAlumno${i}`).value)
+            pesosAlumnos.push(peso)
+        }
+
+        for (let i = 0; i <pesosAlumnos.length; i++) {
+            if (pesosAlumnos[i] < 40) {
+            pesoMenor40++
+            } else if (pesosAlumnos[i] >= 40 && pesosAlumnos[i] < 50) {
+            pesoEntre40y50++
+            } else if (pesosAlumnos[i] >= 50 && pesosAlumnos[i] <= 60) {
+            pesoEntre50y60++
+            } else if (pesosAlumnos[i] > 60){
+                pesoMayor60++
+            }
+        }
+
+        elementos = `<div id=estadisticas> <h1>Estadisticas</h1><p>Alumnos con un peso menor a 40kg: ${pesoMenor40}</p><p>Alumnos con un peso entre 40kg y 50kg: ${pesoEntre40y50}</p><p>Alumnos con un peso entre 50kg y 60kg: ${pesoEntre50y60}<p>Alumnos con un peso mayor a 60kg: ${pesoMayor60}</p></div>`
+
+        div.innerHTML = elementos + "<br><button onclick='limpiar()' id=btn3 class='btn'>Nuevos registros</button>" 
+    }
+
+    function limpiar(){
+        document.getElementById('estadisticas').style.display = 'none';
+        document.getElementById('btn3').style.display = 'none';
+        document.getElementById("cantidad").value = "";
+        document.getElementById('form').style.display = 'block';
+    }
+</script>
